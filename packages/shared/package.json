@@ -1,6 +1,6 @@
 {
   "name": "@prifina-backend/shared",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Utils for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",

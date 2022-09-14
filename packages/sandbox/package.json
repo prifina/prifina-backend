@@ -1,6 +1,6 @@
 {
   "name": "@prifina-backend/sandbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Sandbox entrypoint for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "@babel/preset-env": "^7.16.11",
     "@dynamic-data/oura-mockups": "^0.0.8",
     "@dynamic-data/utils": "^0.0.7",
-    "@prifina-backend/shared": "^0.0.0",
+    "@prifina-backend/shared": "^0.0.1",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^13.1.3",
