@@ -1,11 +1,9 @@
-import babel from "@rollup/plugin-babel";
-import resolve from "@rollup/plugin-node-resolve";
-
+import commonjs from '@rollup/plugin-commonjs';
 const extensions = [".js"];
 
 export default [
   {
-    input: "lib/index.js",
+    input: "src/index.js",
     output: [
       {
         exports: "auto",
@@ -13,20 +11,9 @@ export default [
         format: "cjs",
         preserveModules: true,
       },
-      {
-        dir: "dist/esm",
-        format: "esm",
-        preserveModules: true,
-      },
+
     ],
-    plugins: [
-      resolve({ extensions }),
-      babel({
-        babelHelpers: "bundled",
-        include: ["src/**/*.js"],
-        extensions,
-        exclude: "./node_modules/**",
-      }),
-    ],
+
+    plugins: [commonjs()]
   },
 ];

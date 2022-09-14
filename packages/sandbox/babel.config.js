@@ -1,2 +1,4 @@
-const config = require("../../babel.config.json");
-module.exports = config;
+const sharedConfig = require("../../babel.base.config.js");
+module.exports = {
+  ...sharedConfig,
+};

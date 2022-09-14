@@ -1,6 +1,11 @@
-
+const {
+  awsUtils
+} = require("@prifina-backend/shared");
 const { getNewDate } = require("@dynamic-data/utils");
 
+
+const apiRegion = process.env.USER_REGION;
+const apiEndpoint = process.env.ENDPOINT;
 
 const mutation = `mutation athenaData($id: String!,$appId: String!,$data: String) {
   athenaData(id: $id,appId:$appId,data: $data) {
@@ -58,7 +63,11 @@ function parsePayload(payload) {
   let filter = "";
   let fields = [];
   let format = "JSON"; // CSV
-
+  let queryType = "SYNC";
+  let dataModel = "";
+  let mockupFunction = "";
+  let mockupModule = "";
+  //console.log("PAYLOAD ", Object.keys(payload))
   // source ATHENA
   if (payload.hasOwnProperty("params")) {
     dataconnector = payload.params.args.input.dataconnector;
@@ -68,6 +77,10 @@ function parsePayload(payload) {
         : "";
     fields = payload.params.args.input.fields;
     format = "CSV";
+    queryType = payload.params.dataconnector.queryType;
+    dataModel = payload.params.dataconnector.dataModel;
+    mockupFunction = payload.params.dataconnector.mockupFunction;
+    mockupModule = payload.params.dataconnector.mockupModule;
   }
   // source S3
   if (payload.hasOwnProperty("input")) {
@@ -79,7 +92,7 @@ function parsePayload(payload) {
   }
 
 
-  return { dataconnector, filter, fields, format }
+  return { dataconnector, filter, fields, format, queryType, dataModel, mockupFunction, mockupModule }
 }
 function getMockedData(dataConnector, dataType, format, dataModel, mockFunction, filter, fields) {
 
@@ -114,7 +127,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
       do {
 
         mockupData = getData(dataType, dataModel, startDate);
-
+        //console.log("MOCK ", startDate, mockupData);
         //jsonContent.push({ pvm: startDate, data: mockupData });
         const newData = mockupDataHeader
           .map((col) => {
@@ -124,6 +137,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
         jsonContent.push(newData);
         startDate = getNewDate(startDate, 1, "DATE");
       } while (startDate <= endDate);
+
     }
     if (filterCondition === "<" || filterCondition === "<=") {
       // get start date, end date -30 
@@ -169,11 +183,57 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
 
 async function getSandboxData(payload) {
 
-  let dataconnector = "";
-  let filter = "";
-  let fields = [];
-  let format = "JSON"; // CSV
+  try {
+    const { filter, format, fields, queryType,
+      dataModel,
+      mockupFunction,
+      mockupModule } = parsePayload(payload);
+    const { dataDate, startDate, endDate, filterCondition } = parseFilter(filter);
+    let mockContent = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields)
 
+    if (queryType === "ASYNC") {
+      const credParams = {
+        idToken: "event.params.idToken",
+        userPoolRegion: "process.env.USER_POOL_REGION",
+        userPoolId: "process.env.USER_POOL_ID",
+        userIdPool: "process.env.USER_ID_POOL",
+      };
+      const currentCredentials = await awsUtils.getCredentials(credParams);
+
+      console.log("CREDS ", currentCredentials);
+      const post_body = {
+        query: mutation,
+        operationName: "athenaData",
+        variables: {
+          id: payload.params.args.input.userId,
+          appId: payload.params.args.input.appId,
+          data: JSON.stringify({
+            content: mockContent,
+            dataconnector: payload.params.args.input.dataconnector,
+          }),
+        },
+      };
+      await awsUtils.awsSignedRequest({
+        request_api: apiEndpoint,
+        region: apiRegion,
+        //credentials: defaultProvider(),
+        credentials: () => {
+          return currentCredentials;
+        },
+        post_body: post_body,
+        service: "appsync",
+      });
+    }
+    //console.log("RETURN ", mockContent);
+    return {
+      content: mockContent,
+      next: null,
+    };
+  } catch (e) {
+    console.log("ERR ", e);
+
+    return { error: JSON.stringify(e) };
+  }
 
 }
 module.exports = {

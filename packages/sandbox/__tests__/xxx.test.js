@@ -1,4 +1,21 @@
-const { parsePayload, parseFilter, getMockedData } = require("../src/data");
+
+const {
+  awsUtils
+} = require("@prifina-backend/shared");
+
+
+const fs = require("fs");
+const { join } = require("path");
+const dotenv = require("dotenv");
+const envConfig = dotenv.parse(fs.readFileSync(join(__dirname, "./test-env")));
+
+for (const k in envConfig) {
+  process.env[k] = envConfig[k];
+}
+const { parsePayload, parseFilter, getMockedData, getSandboxData } = require("../src/data");
+
+
+jest.mock("@prifina-backend/shared");
 
 describe("todo", () => {
   //it.todo("can send http requests");
@@ -166,29 +183,36 @@ describe("todo", () => {
   };
   const athenaPayloadData = {
     "params": {
-      "executionId": "f16e4ba2-7bdd-486a-ae41-6634f324e6b2",
+      "executionId": "83054b7e-95c2-4ade-bcbd-e3fe02d74a9c",
       "args": {
         "input": {
-          "dataconnector": "Oura/queryReadinessSummariesAsync",
-          "userId": "f9ed356c68e4f64c4e3bde86e06ab8d4ac96",
-          "fields": [
-            "summary_date",
-            "score_resting_hr"
-          ],
-          "filter": "{\"s3::date\":{\">=\":\"2022-09-04\"}}",
-          "appId": "4TunCi3rwTFsN814u2BDqa",
-          "execId": "jjmKx4y9z3WMSp4Sc2tygp",
+          "dataconnector": "Oura/queryActivitySummariesAsync",
+          "userId": "6145b3af07fa22f66456e20eca49e98bfe35",
+          "fields": [],
+          "filter": "{\"s3::date\":{\">=\":\"2022-09-01\"}}",
+          "appId": "x866fscSq5Ae7bPgUtb6ffB",
+          "execId": "9wuxc8fh59",
           "stage": "sandbox"
         },
-        "sql": "SELECT * FROM core_athena_tables.oura_readiness_summary where user='id_f9ed356c68e4f64c4e3bde86e06ab8d4ac96' and day >= '2022-09-04' order by day desc,period asc"
+        "sql": "SELECT * FROM core_athena_tables.oura_activity_summary where user='id_6145b3af07fa22f66456e20eca49e98bfe35' and day >= '2022-09-01' order by day desc"
       },
-
       "source": "SANDBOX",
-      "idToken": "eyJraWQiOiJRMDE4RDBpdjdqZmZDcGN4a2VLY2h4c0RoZGVBWVI4aW9FY2hpTEN3WGRjPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIzM2UxZmVjYy1jYWE2LTRhYzctYjgzOC05MjEyYzNhZjFmNjQiLCJjb2duaXRvOmdyb3VwcyI6WyJERVYiLCJVU0VSIl0sImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfdzFmREZDa3RQIiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjp0cnVlLCJjb2duaXRvOnVzZXJuYW1lIjoiNTMyYzU5NGYtZWFhYy00ZDA5LTkyYWMtMmUwNTYzNWQ0NDQxIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibW1sYW1waW5lbiIsImdpdmVuX25hbWUiOiJNYXJrdXMiLCJvcmlnaW5fanRpIjoiYjQxZmE5MmItZDBlOS00NjI3LWJmNzItNjkzMjczMGZiNzZhIiwiYXVkIjoiMWljbWE3ZGVybDlzaWZpN3VhYWV0b3VzamEiLCJldmVudF9pZCI6ImU2NzE1ZmIwLWNmYWQtNGQ5MS1iYmVkLTY5MmQwZWIzMGVkZCIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjYyNjcxNzk4LCJjdXN0b206c3RhdHVzIjoiMSIsImN1c3RvbTpwcmlmaW5hIjoiZjllZDM1NmM2OGU0ZjY0YzRlM2JkZTg2ZTA2YWI4ZDRhYzk2IiwicGhvbmVfbnVtYmVyIjoiKzE2NDY4MDE0MDU0IiwiZXhwIjoxNjYyODU0NDk2LCJpYXQiOjE2NjI4NTA4OTYsImZhbWlseV9uYW1lIjoiTGFtcGluZW4iLCJqdGkiOiJkY2VjNTYyNi1iYzBkLTRiNzctYjQzNC0yZTdmNmU1ZTY3YjMiLCJlbWFpbCI6Im1hcmt1c0BwcmlmaW5hLmNvbSJ9.JtOfsFz4Wmgub5DmzLLbmgSxsCfRiaXF8ZhG-EaV_zjfuv51xi8rf2ORxfNjCByk-un3tgGFYcghDleysqtbskH7KNic8PBKmmXA0RJFIX6hwFS5kLrAgXbgH0KWa40GY9wLuDzflcWrV9k2eX_RY1VWKjbeuNM0CqYsA6jAcevVGJSlsaCe_Mlefr1MEtvaA7beyRc5q34E4nca6s5-psv7B3aILuSY23c4ejFrfllJ6OfHFrziYnq0GkA375eVXmZL6yJjRslHYKT8DbSZVlsMWkgkRPsWJpklNJRoC8-VabjJxmOFJJ8F5tNv81at5wUpfYuMq01eOEW6HSJiDw",
-      "fields": [
-        "summary_date",
-        "score_resting_hr"
-      ]
+      "idToken": "eyJraWQiOiJuem9waFdjc0x1ZEdmeE4wXC9TVHJJblJaRjY2c2JsSFl3MjF1TDc1NkVoaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4NGU3YWI2NS0wNzdjLTQ4NWEtYjBjYS05ZWU1ODE0YjUwNmQiLCJjb2duaXRvOmdyb3VwcyI6WyJVU0VSIiwiREVWIl0sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJjdXN0b206aWRlbnRpdHlQb29sIjoiZXUtd2VzdC0xOmI5YzJjNWNjLTZhYzAtNGIxOC05NGNjLTE3Y2MxZWFkN2U5MiIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0w5Snp6d3IyViIsInBob25lX251bWJlcl92ZXJpZmllZCI6dHJ1ZSwiY29nbml0bzp1c2VybmFtZSI6IjlmODc0NDYyLTJlMDctNGI5MS05ZDUxLWFhNzk4OWJiZTVlNyIsInByZWZlcnJlZF91c2VybmFtZSI6InRhaG9sYSIsImdpdmVuX25hbWUiOiJURVJPIiwib3JpZ2luX2p0aSI6ImQ0YmI0Y2E2LTg3ZDMtNDk5OS1hODBmLTg2OWMyNmIxZTQ3YyIsImF1ZCI6IjF2bTVmNTRhaHM5MzFzNTNuYWFxNGdldG45IiwiZXZlbnRfaWQiOiIxOWM0YzU0NC0zN2JjLTQ5NmMtOTA3YS0wMTJlMjQ4MmQyMTgiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY2MTgzNjg3OCwiY3VzdG9tOnByaWZpbmEiOiI2MTQ1YjNhZjA3ZmEyMmY2NjQ1NmUyMGVjYTQ5ZTk4YmZlMzUiLCJwaG9uZV9udW1iZXIiOiIrMzU4NDA3MDc3MTAyIiwiZXhwIjoxNjYzMTQ3NDM3LCJpYXQiOjE2NjMxNDM4MzcsImZhbWlseV9uYW1lIjoiQUhPTEEiLCJqdGkiOiJiY2Y1N2EwNC05MzljLTQzNmMtOGI4NC1jN2UyZTI1ZTE2ZTUiLCJlbWFpbCI6InRybzk5OTkrbmV3QGdtYWlsLmNvbSJ9.dwUs0NzJbp5mVGmiK7zBk87xtI6Lx382ogy3AZJiapDPYyvmTgwbRaVcBYxgUlmVvNkjVJjLTGxXw5brDkDr-3v8Ym_xZB31yoBQeWC-K7kiJ0xcZEMuE4XaxZvJ2mXKd7oEe26rPdTJteE7FpO4y9N8z1tvIGRN-nNxvXC0BLTP8Qi9bN4AANI1q7-0jgEJPYrkKBpvwVBYTKVPJUkScw48G6FqQyKvfbaplPM1zwSBZ8uBLDIfd0Xobh_nqKSWZBdWo1sxFTfLuRm55sNxYxIRAvE5GPnOyeeSxc-iU13-Smd_k2Q7_Lcz7MBXoVZW8HfeUZQq6WeXLw-3jXS4xQ",
+      "fields": [],
+      "dataconnector": {
+        "partitions": [
+          "day"
+        ],
+        "mockupModule": "@dynamic-data/oura-mockups",
+        "dataModel": "ActivitySummaryAsync",
+        "orderBy": "day desc",
+        "source": "ATHENA",
+        "id": "Oura/queryActivitySummariesAsync",
+        "mockupFunction": "getActivityMockupData",
+        "mockup": "queryActivitySummariesAsync",
+        "queryType": "ASYNC",
+        "sql": "SELECT * FROM core_athena_tables.oura_activity_summary"
+      }
     }
   };
 
@@ -232,15 +256,42 @@ describe("todo", () => {
     expect(res.summary_date).toBe(filter["s3::date"]["="]);
   });
 
-  it.only("Get Mocked ASync data", () => {
-    const { filter, format, fields } = parsePayload(athenaPayloadData);
+  it("Get Mocked ASync data", () => {
+
+    const { filter, format, fields, queryType,
+      dataModel,
+      mockupFunction,
+      mockupModule } = parsePayload(athenaPayloadData);
     const { dataDate, startDate, endDate, filterCondition } = parseFilter(filter);
-    const res = getMockedData("@dynamic-data/oura-mockups", "ASYNC", format, "ReadinessSummaryAsync", "getReadinessMockupData", { filter, filterCondition, startDate, endDate }, fields);
+    const res = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate }, fields);
     //console.log(res);
-    expect(res[0]).toBe(fields.join(','));
+    if (fields.length > 0) {
+      expect(res[0]).toBe(fields.join(','));
+    }
     const lastEntryDate = res.pop().split(',')[0];
     //console.log(endDate, lastEntryDate);
     expect(lastEntryDate).toBe(endDate);
+  });
+
+  it.only("Get sandbox data", async () => {
+
+    const { filter } = parsePayload(athenaPayloadData);
+    const { endDate, } = parseFilter(filter);
+
+    awsUtils.getCredentials.mockResolvedValue({
+      accessKeyId: "AKID",
+      secretAccessKey: "SECRET",
+      region: "us-east-1",
+    });
+    awsUtils.awsSignedRequest.mockResolvedValue({});
+
+    const res = await getSandboxData(athenaPayloadData);
+    // console.log(res);
+    const jsonContent = res.content
+    const lastEntryDate = jsonContent.pop().split(',')[0];
+    //console.log(endDate, lastEntryDate);
+    expect(lastEntryDate).toBe(endDate);
+
   });
 
 });  
