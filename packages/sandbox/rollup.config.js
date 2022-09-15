@@ -14,6 +14,8 @@ export default [
 
     ],
 
-    plugins: [commonjs()]
+    plugins: [commonjs({
+      ignoreDynamicRequires: true
+    })]
   },
 ];
