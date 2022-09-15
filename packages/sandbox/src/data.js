@@ -183,6 +183,8 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
 
 async function getSandboxData(payload) {
 
+  console.log("ENV ", process.env);
+
   try {
     const { filter, format, fields, queryType,
       dataModel,
@@ -193,10 +195,10 @@ async function getSandboxData(payload) {
 
     if (queryType === "ASYNC") {
       const credParams = {
-        idToken: "event.params.idToken",
-        userPoolRegion: "process.env.USER_POOL_REGION",
-        userPoolId: "process.env.USER_POOL_ID",
-        userIdPool: "process.env.USER_ID_POOL",
+        idToken: payload.params.idToken,
+        userPoolRegion: process.env.USER_POOL_REGION,
+        userPoolId: process.env.USER_POOL_ID,
+        userIdPool: process.env.USER_ID_POOL,
       };
       const currentCredentials = await awsUtils.getCredentials(credParams);
 
