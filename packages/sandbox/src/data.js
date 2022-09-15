@@ -89,6 +89,10 @@ function parsePayload(payload) {
       payload.input.filter.length > 0 ? JSON.parse(payload.input.filter) : "";
     fields = payload.input.fields;
     format = payload.payload.dataconnector.input;
+    queryType = payload.dataconnector.queryType;
+    dataModel = payload.dataconnector.dataModel;
+    mockupFunction = payload.dataconnector.mockupFunction;
+    mockupModule = payload.dataconnector.mockupModule;
   }
 
 

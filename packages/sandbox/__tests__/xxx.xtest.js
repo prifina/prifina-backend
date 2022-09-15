@@ -117,24 +117,24 @@ describe("todo", () => {
   const s3PayloadData = {
     "input": {
       "dataconnector": "Oura/queryActivitySummary",
-      "userId": "f9ed356c68e4f64c4e3bde86e06ab8d4ac96",
+      "userId": "6145b3af07fa22f66456e20eca49e98bfe35",
       "fields": [],
-      "filter": "{\"s3::date\":{\"=\":\"2022-09-09\"}}",
-      "appId": "csd88KWnuft8fHfMrKSBAD",
-      "execId": "9iUGJZaa8Q2ofufp1jYwh1",
+      "filter": "{\"s3::date\":{\"=\":\"2022-09-13\"}}",
+      "appId": "x866fscSq5Ae7bPgUtb6ffB",
+      "execId": "7cgbue6ksz",
       "stage": "sandbox"
     },
     "identity": {
-      "accountId": "429117803886",
-      "cognitoIdentityAuthProvider": "\"cognito-idp.us-east-1.amazonaws.com/us-east-1_w1fDFCktP\",\"cognito-idp.us-east-1.amazonaws.com/us-east-1_w1fDFCktP:CognitoSignIn:33e1fecc-caa6-4ac7-b838-9212c3af1f64\"",
+      "accountId": "352681697435",
+      "cognitoIdentityAuthProvider": "\"cognito-idp.us-east-1.amazonaws.com/us-east-1_L9Jzzwr2V\",\"cognito-idp.us-east-1.amazonaws.com/us-east-1_L9Jzzwr2V:CognitoSignIn:84e7ab65-077c-485a-b0ca-9ee5814b506d\"",
       "cognitoIdentityAuthType": "authenticated",
-      "cognitoIdentityId": "us-east-1:080e39f5-643b-42d9-bd03-4e55b161cad4",
-      "cognitoIdentityPoolId": "us-east-1:1cb638b4-0f0c-4078-9fe0-4dbd3582783d",
+      "cognitoIdentityId": "eu-west-1:366f606a-cab6-4c31-89d7-6491a7aef8b6",
+      "cognitoIdentityPoolId": "eu-west-1:b9c2c5cc-6ac0-4b18-94cc-17cc1ead7e92",
       "sourceIp": [
-        "73.202.150.58"
+        "109.240.191.222"
       ],
-      "userArn": "arn:aws:sts::429117803886:assumed-role/user-cognito-CognitoUserAuthRole-1254IDGURCRYG/CognitoIdentityCredentials",
-      "username": "AROAWH2LKBVXCRH33KO3W:CognitoIdentityCredentials"
+      "userArn": "arn:aws:sts::352681697435:assumed-role/user-cognito-CognitoUserAuthRole-10J553L3HABQV/CognitoIdentityCredentials",
+      "username": "AROAVEHLXUCNRKZV4KZJ2:CognitoIdentityCredentials"
     },
     "dataconnector": {
       "partitions": [
@@ -142,15 +142,20 @@ describe("todo", () => {
       ],
       "bucket": "prifina-user",
       "input": "JSON",
+      "mockupModule": "@dynamic-data/oura-mockups",
       "s3Key": "oura/activity/summary",
+      "dataModel": "ActivitySummary",
       "objectName": "summary.json",
       "source": "S3",
-      "id": "Oura/queryActivitySummary"
+      "id": "Oura/queryActivitySummary",
+      "mockupFunction": "getActivityMockupData",
+      "mockup": "queryActivitySummary",
+      "queryType": "SYNC"
     },
     "payload": {
       "params": {
         "Bucket": "prifina-user",
-        "Key": "datamodels/oura/activity/summary/user=id_f9ed356c68e4f64c4e3bde86e06ab8d4ac96/2022-09-09/summary.json",
+        "Key": "datamodels/oura/activity/summary/user=id_6145b3af07fa22f66456e20eca49e98bfe35/2022-09-13/summary.json",
         "ExpressionType": "SQL",
         "Expression": "SELECT * FROM s3object",
         "InputSerialization": {
@@ -174,10 +179,15 @@ describe("todo", () => {
         ],
         "bucket": "prifina-user",
         "input": "JSON",
+        "mockupModule": "@dynamic-data/oura-mockups",
         "s3Key": "oura/activity/summary",
+        "dataModel": "ActivitySummary",
         "objectName": "summary.json",
         "source": "S3",
-        "id": "Oura/queryActivitySummary"
+        "id": "Oura/queryActivitySummary",
+        "mockupFunction": "getActivityMockupData",
+        "mockup": "queryActivitySummary",
+        "queryType": "SYNC"
       }
     }
   };
