@@ -120,6 +120,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
   }
   if (dataType === "ASYNC") {
     const { getModelCSVHeader } = require(dataConnector);
+    //console.log("CSV HEADER", getModelCSVHeader, dataModel);
     let mockupDataHeader = getModelCSVHeader(dataModel);
     let startDate = filter.startDate;
     let endDate = filter.endDate;
@@ -140,6 +141,8 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
           .join(",");
         jsonContent.push(newData);
         startDate = getNewDate(startDate, 1, "DATE");
+        console.log("LOOP ", startDate);
+
       } while (startDate <= endDate);
 
     }
