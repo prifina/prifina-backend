@@ -24,9 +24,9 @@ describe("todo", () => {
       "executionId": "cbb9a7e1-51e8-4974-9329-4131a960d421",
       "args": {
         "input": {
-          //"dataconnector": "Garmin/queryDailiesDataAsync",
+          "dataconnector": "Garmin/queryDailiesDataAsync",
           // "dataconnector": "Garmin/queryEpochsDataAsync",
-          "dataconnector": "Garmin/queryPulseoxDataAsync",
+          //"dataconnector": "Garmin/queryPulseoxDataAsync",
           //"dataconnector": "Garmin/querySleepsDataAsync",
           "userId": "6145b3af07fa22f66456e20eca49e98bfe35",
           "fields": [],
