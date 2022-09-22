@@ -21,21 +21,21 @@ describe("todo", () => {
   //it.todo("can send http requests");
   const athenaPayloadData = {
     "params": {
-      "executionId": "65dd983e-a5f7-49bd-be3c-d4a24d8637a0",
+      "executionId": "3e8f2cbc-b1ac-4a90-b1b5-91513e7a9dc4",
       "args": {
         "input": {
-          "dataconnector": "Garmin/queryPulseoxDataAsync",
+          "dataconnector": "Garmin/queryDailiesDataAsync",
           "userId": "6145b3af07fa22f66456e20eca49e98bfe35",
           "fields": [],
-          "filter": "{\"s3::date\":{\">=\":\"2022-09-18\"}}",
+          "filter": "{\"s3::date\":{\">=\":\"2022-09-20\"}}",
           "appId": "x866fscSq5Ae7bPgUtb6ffB",
-          "execId": "kbxcpq85wj",
+          "execId": "828upk7qix",
           "stage": "sandbox"
         },
-        "sql": "SELECT * FROM core_athena_tables.garmin_pulseox_data where user='id_6145b3af07fa22f66456e20eca49e98bfe35' and day >= '2022-09-18' order by day desc"
+        "sql": "SELECT * FROM core_athena_tables.garmin_dailies_data where user='id_6145b3af07fa22f66456e20eca49e98bfe35' and day >= '2022-09-20' order by day desc"
       },
       "source": "SANDBOX",
-      "idToken": "eyJraWQiOiJuem9waFdjc0x1ZEdmeE4wXC9TVHJJblJaRjY2c2JsSFl3MjF1TDc1NkVoaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4NGU3YWI2NS0wNzdjLTQ4NWEtYjBjYS05ZWU1ODE0YjUwNmQiLCJjb2duaXRvOmdyb3VwcyI6WyJVU0VSIiwiREVWIl0sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJjdXN0b206aWRlbnRpdHlQb29sIjoiZXUtd2VzdC0xOmI5YzJjNWNjLTZhYzAtNGIxOC05NGNjLTE3Y2MxZWFkN2U5MiIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0w5Snp6d3IyViIsInBob25lX251bWJlcl92ZXJpZmllZCI6dHJ1ZSwiY29nbml0bzp1c2VybmFtZSI6IjlmODc0NDYyLTJlMDctNGI5MS05ZDUxLWFhNzk4OWJiZTVlNyIsInByZWZlcnJlZF91c2VybmFtZSI6InRhaG9sYSIsImdpdmVuX25hbWUiOiJURVJPIiwib3JpZ2luX2p0aSI6ImQ0YmI0Y2E2LTg3ZDMtNDk5OS1hODBmLTg2OWMyNmIxZTQ3YyIsImF1ZCI6IjF2bTVmNTRhaHM5MzFzNTNuYWFxNGdldG45IiwiZXZlbnRfaWQiOiIxOWM0YzU0NC0zN2JjLTQ5NmMtOTA3YS0wMTJlMjQ4MmQyMTgiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY2MTgzNjg3OCwiY3VzdG9tOnByaWZpbmEiOiI2MTQ1YjNhZjA3ZmEyMmY2NjQ1NmUyMGVjYTQ5ZTk4YmZlMzUiLCJwaG9uZV9udW1iZXIiOiIrMzU4NDA3MDc3MTAyIiwiZXhwIjoxNjYzNzQwNzEwLCJpYXQiOjE2NjM3MzcxMTEsImZhbWlseV9uYW1lIjoiQUhPTEEiLCJqdGkiOiI2ODI1ODAzYi1iNzI3LTRmMzMtYjY5OC0yMWExZmZiOWUyNmIiLCJlbWFpbCI6InRybzk5OTkrbmV3QGdtYWlsLmNvbSJ9.WfzV9Mmj0zVgmmA1M6BpS2hE-1nMurPi7bH10TBIN04asC23Xjr4LzvIjl07ociGMFlhvgnz1ayEYJ5rJdoDrfXL6Ws4qvCOCpv11eS0gHjp7dBa7mQAV9ROngJ8yIohEHEePIz7mJiEfsSkSOlGzRedoZt0vHzzXieWOGkFKNhRv9fWkQmR6mOVfUDvs9LpyhI8iQ5zzjKtncTE3-kpL7p15LX0xg9Zme86NQXBJx3zN-sQvwR44QWk6IEuRkc9z2cPZ9Os4sjVJ3X-TNyFXs9TPY42MblhgLDA9dgVCcHQYGs86aja0edTjyPrGghSWwV5h8mnoQi_QtcyaHs7lA",
+      "idToken": "eyJraWQiOiJuem9waFdjc0x1ZEdmeE4wXC9TVHJJblJaRjY2c2JsSFl3MjF1TDc1NkVoaz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4NGU3YWI2NS0wNzdjLTQ4NWEtYjBjYS05ZWU1ODE0YjUwNmQiLCJjb2duaXRvOmdyb3VwcyI6WyJVU0VSIiwiREVWIl0sImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJjdXN0b206aWRlbnRpdHlQb29sIjoiZXUtd2VzdC0xOmI5YzJjNWNjLTZhYzAtNGIxOC05NGNjLTE3Y2MxZWFkN2U5MiIsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX0w5Snp6d3IyViIsInBob25lX251bWJlcl92ZXJpZmllZCI6dHJ1ZSwiY29nbml0bzp1c2VybmFtZSI6IjlmODc0NDYyLTJlMDctNGI5MS05ZDUxLWFhNzk4OWJiZTVlNyIsInByZWZlcnJlZF91c2VybmFtZSI6InRhaG9sYSIsImdpdmVuX25hbWUiOiJURVJPIiwib3JpZ2luX2p0aSI6ImQ0YmI0Y2E2LTg3ZDMtNDk5OS1hODBmLTg2OWMyNmIxZTQ3YyIsImF1ZCI6IjF2bTVmNTRhaHM5MzFzNTNuYWFxNGdldG45IiwiZXZlbnRfaWQiOiIxOWM0YzU0NC0zN2JjLTQ5NmMtOTA3YS0wMTJlMjQ4MmQyMTgiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY2MTgzNjg3OCwiY3VzdG9tOnByaWZpbmEiOiI2MTQ1YjNhZjA3ZmEyMmY2NjQ1NmUyMGVjYTQ5ZTk4YmZlMzUiLCJwaG9uZV9udW1iZXIiOiIrMzU4NDA3MDc3MTAyIiwiZXhwIjoxNjYzODYzNDgwLCJpYXQiOjE2NjM4NTk4ODAsImZhbWlseV9uYW1lIjoiQUhPTEEiLCJqdGkiOiIwMzZjZGE3Ni1mYzgyLTQ4ZjUtOTJkOS0xZjA0ZWEyZTMxNjIiLCJlbWFpbCI6InRybzk5OTkrbmV3QGdtYWlsLmNvbSJ9.CQ_DmjDOSWRiBdwBg2aQaGpn47ekkkUViGf3pKnO32lboms7D4Ux3M2HfnOEYJsJNAz1BMJuA1THyrFN8f0Qc5DDs8XHbVhTS-8UgLBDVqRD07W5tM8KguBW_1gbd4Tmgr9fnVxBfOAdPWs4e2Tffyw1-vih1Qxacv9GE1P76ezptbwR6BJuBSfrVDbeyc5jwVwkzFOobuW4NawFzSKFKM6335UDp4_llJUBnveNKVkoeTstlAlxKd7v7N4ddCQZpEqCiZLmoCDdsYhLX6aRNg2VZMDp_9r1LVqRDQCA2m0mfX5zIsVaYGF5GdleGWnNewS9ws5-dgiTJ2SP0YSWPw",
       "fields": [],
       "dataconnector": {
         "partitions": [
@@ -43,15 +43,14 @@ describe("todo", () => {
           "period"
         ],
         "mockupModule": "@dynamic-data/garmin-mockups",
-        "dataModel": "PulseoxData",
+        "dataModel": "DailiesData",
         "orderBy": "day desc",
         "source": "ATHENA",
-        "id": "Garmin/queryPulseoxDataAsync",
-
-        "mockupFunction": "getPulseoxMockupData",
-        "mockup": "queryPulseoxDataAsync",
+        "id": "Garmin/queryDailiesDataAsync",
+        "mockupFunction": "getDailiesMockupData",
+        "mockup": "queryDailiesDataAsync",
         "queryType": "ASYNC",
-        "sql": "SELECT * FROM core_athena_tables.garmin_pulseox_data"
+        "sql": "SELECT * FROM core_athena_tables.garmin_dailies_data"
       }
     }
   }
@@ -78,7 +77,7 @@ describe("todo", () => {
   });
 
 
-  it("Get Mocked ASync data", () => {
+  it.only("Get Mocked ASync data", () => {
 
     const { filter, format, fields, queryType,
       dataModel,
@@ -97,7 +96,7 @@ describe("todo", () => {
     expect(lastEntryDate).toBe(endDate);
   });
 
-  it.only("Get async sandbox data", async () => {
+  it("Get async sandbox data", async () => {
 
     const { filter } = parsePayload(athenaPayloadData);
     const { endDate, } = parseFilter(filter);

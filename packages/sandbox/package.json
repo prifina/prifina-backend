@@ -24,7 +24,7 @@
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
     "@dynamic-data/fitbit-mockups": "^0.0.14",
-    "@dynamic-data/garmin-mockups": "^0.0.15",
+    "@dynamic-data/garmin-mockups": "^0.0.16",
     "@dynamic-data/oura-mockups": "^0.0.13",
     "@dynamic-data/utils": "^0.0.11",
     "@prifina-backend/shared": "^0.0.1",

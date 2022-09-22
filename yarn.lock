@@ -2217,10 +2217,10 @@
   resolved "https://registry.yarnpkg.com/@dynamic-data/garmin-data/-/garmin-data-0.0.7.tgz#cf9d5c7f7158adb311c3818f530a9179887e855d"
   integrity sha512-T1E3klt8ucWcTm/J59obDc4TdMufTEWydO860J1goz872i//1hxFsbjQejKWkYUJUEwQdolpBrr2uCS3zq+FhA==
 
-"@dynamic-data/garmin-mockups@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/garmin-mockups/-/garmin-mockups-0.0.15.tgz#aff48db4e439aa9aad925aa1daf142ab92e69b08"
-  integrity sha512-0Y9Zxk0h9zdlQs9R5kMOqgvIv0q91Ngt7NzYmuVeL0cM0nSksvxx6iyFRI2VJPDmZC0kqeyGA0LWOZzqb3QSWA==
+"@dynamic-data/garmin-mockups@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/garmin-mockups/-/garmin-mockups-0.0.16.tgz#a00c808b2216cf29a8e86fbed77fd1e8ea91c834"
+  integrity sha512-qQ/DviUywOAkXG3PLxanqS6v7zjspUeS5QCzRV0D1+54RVh8rnLSWm7oNzTamGG26KS6UihyIMfoKP2y7ObV5w==
   dependencies:
     "@dynamic-data/garmin-data" "^0.0.7"
     "@dynamic-data/utils" "^0.0.11"

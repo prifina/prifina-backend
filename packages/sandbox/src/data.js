@@ -214,7 +214,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
 
   if (dataType === "ASYNC") {
     const { getModelCSVHeader } = require(dataConnector);
-    //console.log("CSV HEADER", getModelCSVHeader, dataModel);
+    console.log("CSV HEADER", getModelCSVHeader, dataModel);
     let mockupDataHeader = getModelCSVHeader(dataModel + "Async");
     //console.log(mockupDataHeader);
     const csvData = [];
