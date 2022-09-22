@@ -154,7 +154,8 @@ describe("todo", () => {
     const res = await getSandboxData(athenaPayloadData);
     // console.log(res);
     const jsonContent = res.content
-    const lastEntryDate = jsonContent.pop().split(',')[0];
+    //garmin has this header... summaryId,calendardate,...
+    const lastEntryDate = jsonContent.pop().split('/t')[1];
     //console.log(endDate, lastEntryDate);
     expect(lastEntryDate).toBe(endDate);
 
