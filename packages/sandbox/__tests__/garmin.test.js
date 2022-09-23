@@ -89,7 +89,11 @@ describe("todo", () => {
     if (fields.length > 0) {
       expect(res[0]).toBe(fields.join('/t'));
     }
-
+    /*
+        console.log(res[0].split('/t')[1]);
+        console.log(res[1].split('/t')[1]);
+        console.log(res[2].split('/t')[1]);
+    */
     //summaryId,calendardate,...
     const lastEntryDate = res.pop().split('/t')[1];
     console.log(endDate, lastEntryDate);

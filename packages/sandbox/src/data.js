@@ -123,7 +123,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
   const getData = require(dataConnector)[mockFunction];
   if (dataType === "SYNC") {
     mockupData = getData(dataModel, filter.dataDate);
-    mockupContent = mockupData;
+    mockupContent = Object.assign({}, mockupData);
 
     if (fields.length > 0) {
       let fieldsData = {};
@@ -146,9 +146,9 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
       do {
 
         mockupData = getData(dataModel, startDate);
-        //console.log("MOCK ", startDate, mockupData);
+        //console.log("MOCK ", startDate,);
         //mockupContent.push({ pvm: startDate, data: mockupData });
-        let newData = mockupData;
+        let newData = Object.assign({}, mockupData);
         if (fields.length > 0) {
           let fieldsData = {};
 
@@ -167,6 +167,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
         mockupContent.push(newData);
         startDate = getNewDate(startDate, 1, "DATE");
         //console.log("LOOP ", startDate);
+
 
       } while (startDate <= endDate);
 
@@ -212,11 +213,14 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
 
   }
 
+  //  console.log(mockupContent.length, mockupContent[0].calendardate, mockupContent[1].calendardate);
+
+  //console.log("DATA ", mockupContent);
   if (dataType === "ASYNC") {
     const { getModelCSVHeader } = require(dataConnector);
     console.log("CSV HEADER", getModelCSVHeader, dataModel);
     let mockupDataHeader = getModelCSVHeader(dataModel + "Async");
-    //console.log(mockupDataHeader);
+    // console.log(mockupDataHeader);
     const csvData = [];
     let header = [];
     if (fields.length > 0) {
@@ -235,23 +239,24 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
     */
     //mockupContent.push(mockupDataHeader.join(","));
 
-    //console.log(mockupContent[0]);
+    //console.log(mockupContent.length, mockupContent[0].calendardate, mockupContent[1].calendardate);
 
     for (let row = 0; row < mockupContent.length; row++) {
       let rowData = [];
-
+      //console.log(mockupContent[row].calendardate);
       Object.keys(mockupContent[row]).forEach(k => {
         if (isObject(mockupContent[row][k]) || Array.isArray(mockupContent[row][k])) {
           // is array transformation same as json...
           //console.log(JSON.stringify(mockupContent[0][k]).replace(/"/g, "").replace(/:/g, "="));
-          rowData.push(JSON.stringify(mockupContent[row][k]).replace(/"/g, "").replace(/:/g, "="))
+          //rowData.push(JSON.stringify(mockupContent[row][k]).replace(/"/g, "").replace(/:/g, "="))
         } else {
           rowData.push(mockupContent[row][k])
         }
       });
+      //console.log(rowData)
       csvData.push(rowData.join("/t"));
     }
-    //console.log(csvData);
+    // console.log(csvData);
     mockupContent = csvData;
 
   }
