@@ -2225,17 +2225,17 @@
     "@dynamic-data/garmin-data" "^0.0.7"
     "@dynamic-data/utils" "^0.0.11"
 
-"@dynamic-data/oura-data@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/oura-data/-/oura-data-0.0.8.tgz#39d7cef8e4f7674992c4dda7c51eb2f19b24f15f"
-  integrity sha512-SQpXYTlWm8dAKRvcdXtzU8+tld0mbVVTweIoHiMtfpdQKRB4qc0vjfrJoSnaU0gLe8x+WADT4jY96G3TyrHfng==
+"@dynamic-data/oura-data@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/oura-data/-/oura-data-0.0.9.tgz#b3058e8a64341ca3cad6249bc4a72e7b9435a24b"
+  integrity sha512-yKXWlFV/wQaV5u/WjLA0iETuX6MsA3bgAUaSXjaSwTaPCzkoArb7LPPGpgH/cRJeq9zf5Y5g0x5u8fU6CegXgQ==
 
-"@dynamic-data/oura-mockups@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/oura-mockups/-/oura-mockups-0.0.13.tgz#a5348580e93c31c203699d3fb5ac3e370b8e714d"
-  integrity sha512-TcKb1zQDs9syy5XUTNcA7iuE0nHPQZCFztjZUoyaBdPYP5qK1Xx5mWb9dyfH3pj/NUaV0K+nP/M9VfoyUaGKwA==
+"@dynamic-data/oura-mockups@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/oura-mockups/-/oura-mockups-0.0.14.tgz#f464c6835692783258079ae4f09ddd9e7f449ae6"
+  integrity sha512-PFbvK1abCmyFs1Zw8GDKbHP60lbQrPs2A1VcybUeK6xF6/PTvxmjziwRIFo/IiPMbyNjbEl4EaxQJhdWNqB2KA==
   dependencies:
-    "@dynamic-data/oura-data" "^0.0.8"
+    "@dynamic-data/oura-data" "^0.0.9"
     "@dynamic-data/utils" "^0.0.11"
 
 "@dynamic-data/utils@^0.0.11":

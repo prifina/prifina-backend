@@ -21,11 +21,14 @@ const { createNonce } = require("./libUtils");
 
 function addPrifinaUser(data) {
   const createdAt = new Date().toISOString();
-
+  /*
   const installedApps = JSON.parse(
     '["Settings","DataConsole","AppMarket","SmartSearch","DisplayApp","ProfileCards","DevConsole"]'
   );
-
+  */
+  const installedApps = JSON.parse(
+    '["Settings","DataConsole","AppMarket","DisplayApp","DevConsole"]'
+  );
   const params = {
     TableName: "PrifinaUser",
     Key: { id: data.uuid },
@@ -496,14 +499,14 @@ function addNotification(data) {
 
   /*
 type Notification @aws_iam {
-	body: String!
-	createdAt: AWSTimestamp!
-	notificationId: String!
-	owner: String!
-	sender: String
-	status: Int!
-	type: String!
-	updatedAt: AWSTimestamp!
+  body: String!
+  createdAt: AWSTimestamp!
+  notificationId: String!
+  owner: String!
+  sender: String
+  status: Int!
+  type: String!
+  updatedAt: AWSTimestamp!
 }
 $util.qr($ctx.args.input.put("createdAt", $util.defaultIfNull($ctx.args.input.createdAt, $util.time.nowEpochMilliSeconds() )))
 $util.qr($ctx.args.input.put("updatedAt", $util.defaultIfNull($ctx.args.input.updatedAt, $util.time.nowEpochMilliSeconds() )))
