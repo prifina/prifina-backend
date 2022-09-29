@@ -227,9 +227,9 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
       header = fields.filter((c, i) => {
         return mockupDataHeader.findIndex((col) => col === c);
       });
-      csvData.push(header.join('/t'));
+      csvData.push(header.join('\t'));
     } else {
-      csvData.push(mockupDataHeader.join('/t'));
+      csvData.push(mockupDataHeader.join('\t'));
     }
     /*
     const header = mockupContent[0].split(",");
@@ -254,7 +254,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
         }
       });
       //console.log(rowData)
-      csvData.push(rowData.join("/t"));
+      csvData.push(rowData.join("\t"));
     }
     // console.log(csvData);
     mockupContent = csvData;
