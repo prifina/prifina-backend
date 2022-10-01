@@ -227,9 +227,9 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
       header = fields.filter((c, i) => {
         return mockupDataHeader.findIndex((col) => col === c);
       });
-      csvData.push(header.join('\t'));
+      csvData.push(header.join(','));
     } else {
-      csvData.push(mockupDataHeader.join('\t'));
+      csvData.push(mockupDataHeader.join(','));
     }
     /*
     const header = mockupContent[0].split(",");
@@ -254,7 +254,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
         }
       });
       //console.log(rowData)
-      csvData.push(rowData.join("\t"));
+      csvData.push(rowData.join(","));
     }
     // console.log(csvData);
     mockupContent = csvData;
@@ -268,7 +268,7 @@ const isObject = (value) => {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 };
 /*
-"x3a9c8fe-61c8ca74-8340\t2021-12-27\t33600\t1640548980\t7200\t0\t0\t28260\t5340\t60
+"x3a9c8fe-61c8ca74-8340,2021-12-27\t33600\t1640548980\t7200\t0\t0\t28260\t5340\t60
 \t{deep=null,
    light=[{starttimeinseconds=1640548980, endtimeinseconds=1640554560},
    {starttimeinseconds=1640557080, endtimeinseconds=1640559720}, {starttimeinseconds=1640559960, endtimeinseconds=1640560560},

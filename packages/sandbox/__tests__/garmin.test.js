@@ -87,7 +87,7 @@ describe("todo", () => {
     const res = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate }, fields);
     //console.log(res);
     if (fields.length > 0) {
-      expect(res[0]).toBe(fields.join('/t'));
+      expect(res[0]).toBe(fields.join(','));
     }
     /*
         console.log(res[0].split('/t')[1]);
@@ -95,7 +95,7 @@ describe("todo", () => {
         console.log(res[2].split('/t')[1]);
     */
     //summaryId,calendardate,...
-    const lastEntryDate = res.pop().split('/t')[1];
+    const lastEntryDate = res.pop().split(',')[1];
     console.log(endDate, lastEntryDate);
     expect(lastEntryDate).toBe(endDate);
   });
@@ -115,7 +115,7 @@ describe("todo", () => {
     const res = await getSandboxData(athenaPayloadData);
     console.log(res);
     const jsonContent = res.content
-    const lastEntryDate = jsonContent.pop().split('/t')[1];
+    const lastEntryDate = jsonContent.pop().split(',')[1];
     //console.log(endDate, lastEntryDate);
     expect(lastEntryDate).toBe(endDate);
 

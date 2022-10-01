@@ -155,7 +155,7 @@ describe("todo", () => {
     // console.log(res);
     const jsonContent = res.content
     //garmin has this header... summaryId,calendardate,...
-    const lastEntryDate = jsonContent.pop().split('/t')[1];
+    const lastEntryDate = jsonContent.pop().split(',')[1];
     //console.log(endDate, lastEntryDate);
     expect(lastEntryDate).toBe(endDate);
 
