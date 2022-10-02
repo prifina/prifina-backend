@@ -254,7 +254,7 @@ describe("todo", () => {
       mockupFunction,
       mockupModule } = parsePayload(s3PayloadData);
     const { dataDate, startDate, endDate, filterCondition } = parseFilter(filter);
-    const res = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate }, fields);
+    const res = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields);
     console.log(res);
     if (fields.length > 0) {
       //  expect(res[0]).toBe(fields.join(','));
