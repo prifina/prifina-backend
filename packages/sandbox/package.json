@@ -1,6 +1,6 @@
 {
   "name": "@prifina-backend/sandbox",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Sandbox entrypoint for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",
