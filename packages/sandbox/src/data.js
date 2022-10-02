@@ -119,6 +119,8 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
         mockupData[k] = mockupDataRow[i];
       });
   */
+  //const test = require("@dynamic-data/garmin-mockups");
+  //console.log("GARMIN", test);
 
   const getData = require(dataConnector)[mockFunction];
   if (dataType === "SYNC") {
