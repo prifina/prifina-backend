@@ -110,7 +110,7 @@ function getRequest(requestUrl, oAuth, query = "") {
     req.end();
   });
 }
-function postRequest(requestUrl, oAuth, body) {
+function postRequest(requestUrl, oAuth, body, header = {}) {
   //const body = JSON.stringify(message);
   //const URL = require("url");
   const HTTPS = require("https");
@@ -124,6 +124,11 @@ function postRequest(requestUrl, oAuth, body) {
     "Content-Type": "application/x-www-form-urlencoded",
     "Content-Length": Buffer.byteLength(body),
   };
+  if (Object.keys(header).length > 0) {
+    Object.keys(header).forEach(key => {
+      options.headers[key] = header[key];
+    })
+  }
   /*
   ["protocol", "host", "hostname", "pathname", "href", "port"].forEach((o) => {
     options[o] = urlOptions[o];
