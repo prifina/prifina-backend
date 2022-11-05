@@ -8,6 +8,7 @@ const {
   s3Client,
   ebClient,
   athenaClient,
+  cwClient
 } = require("./aws");
 
 const {
@@ -46,6 +47,9 @@ const {
   GetQueryResultsCommand,
   StartQueryExecutionCommand,
 } = require("@aws-sdk/client-athena");
+
+const { ListMetricsCommand, GetMetricDataCommand } = require("@aws-sdk/client-cloudwatch");
+
 const { uCfirst } = require("./libUtils");
 const { PutEventsCommand } = require("@aws-sdk/client-eventbridge");
 
@@ -546,6 +550,16 @@ function athenaStartQueryExecution(params) {
   return athenaClient.send(new StartQueryExecutionCommand(params));
 }
 
+
+function cloudwatchListMetrics(params) {
+  return cwClient.send(new ListMetricsCommand(params));
+}
+
+function cloudwatchGetMetricsData(params) {
+  return cwClient.send(new GetMetricDataCommand(params));
+}
+
+
 /*
 addPrifinaUser({ uuid: "UUID", user_id: "TEST", name: "TRO" }).then((res) => {
   console.log("TEST ", res);
@@ -634,6 +648,9 @@ module.exports = {
   getCredentials,
   awsGetSignedUrl,
   s3GetObjectStream,
+  cloudwatchListMetrics,
+  cloudwatchGetMetricsData
+
 };
 
 //exports.CognitoUpdateAttributes = CognitoUpdateAttributes;

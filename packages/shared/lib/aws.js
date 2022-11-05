@@ -20,7 +20,10 @@ const { SNSClient } = require("@aws-sdk/client-sns");
 
 const { EventBridgeClient } = require("@aws-sdk/client-eventbridge");
 
+const { CloudWatchClient } = require("@aws-sdk/client-cloudwatch");
+
 const defaultCredentials = defaultProvider();
+
 
 /*
 AWS.CredentialProviderChain.defaultProviders = [
@@ -58,6 +61,9 @@ const s3Client = new S3Client(clientCredentials);
 // Create an Amazon EventBridge service client object.
 const ebClient = new EventBridgeClient(clientCredentials);
 const athenaClient = new AthenaClient(clientCredentials);
+const cwClient = new CloudWatchClient(clientCredentials);
+
+
 const marshallOptions = {
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
@@ -85,5 +91,6 @@ module.exports = {
   snsClient,
   s3Client,
   ebClient,
-  athenaClient
+  athenaClient,
+  cwClient
 };
