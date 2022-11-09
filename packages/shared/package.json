@@ -1,6 +1,6 @@
 {
   "name": "@prifina-backend/shared",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Utils for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-athena": "^3.42.0",
+    "@aws-sdk/client-cloudwatch": "^3.204.0",
     "@aws-sdk/client-cognito-identity": "^3.168.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.41.0",
     "@aws-sdk/client-dynamodb": "^3.41.0",
@@ -31,7 +32,6 @@
     "@aws-sdk/lib-dynamodb": "^3.41.0",
     "@aws-sdk/node-http-handler": "^3.40.0",
     "@aws-sdk/s3-request-presigner": "^3.168.0",
-    "@aws-sdk/client-cloudwatch": "^3.204.0",
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
