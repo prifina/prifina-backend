@@ -1,11 +1,13 @@
 {
-  "name": "@prifina-backend/sandbox",
-  "version": "0.0.21",
+  "name": "@prifina-backend/utils",
+  "version": "0.0.1",
   "description": "Sandbox entrypoint for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
+    "import": "./dist/esm/index.js",
     "require": "./dist/cjs/index.js"
   },
   "files": [
@@ -23,6 +25,10 @@
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
+    "@dynamic-data/fitbit-mockups": "^0.0.15",
+    "@dynamic-data/garmin-mockups": "^0.0.18",
+    "@dynamic-data/oura-mockups": "^0.0.14",
+    "@dynamic-data/utils": "^0.0.11",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^6.0.0",
@@ -34,13 +40,6 @@
     "msw": "^0.47.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
-    "rollup-plugin-node-externals": "^5.1.0",
-    "@prifina-backend/shared": "^0.0.6"
-  },
-  "peerDependencies": {
-    "@prifina-backend/shared": "^0.0.6"
-  },
-  "dependencies": {
-    "@prifina-backend/utils": "^0.0.1"
+    "rollup-plugin-node-externals": "^5.1.0"
   }
 }

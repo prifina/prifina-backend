@@ -1,0 +1,9 @@
+DEBUG= true
+APP_CLIENT= "app-client"
+DEV_CLIENT= "dev-client"
+SERVICE_CLIENT= "service-client"
+PRIFINA_EMAIL= "prifina-email-domain"
+NODE_TLS_REJECT_UNAUTHORIZED = "0"
+
+USER_REGION="us-east-1"
+ENDPOINT="https://endpoint.xxx/"
