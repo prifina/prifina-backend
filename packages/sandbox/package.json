@@ -1,6 +1,6 @@
 {
   "name": "@prifina-backend/sandbox",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Sandbox entrypoint for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",
@@ -23,6 +23,7 @@
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
+    "@prifina-backend/shared": "^0.0.7",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^6.0.0",
@@ -34,13 +35,12 @@
     "msw": "^0.47.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
-    "rollup-plugin-node-externals": "^5.1.0",
-    "@prifina-backend/shared": "^0.0.6"
+    "rollup-plugin-node-externals": "^5.1.0"
   },
   "peerDependencies": {
     "@prifina-backend/shared": "^0.0.6"
   },
   "dependencies": {
-    "@prifina-backend/utils": "^0.0.1"
+    "@prifina-backend/utils": "^0.0.2"
   }
 }
