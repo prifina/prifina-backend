@@ -1,13 +1,11 @@
-const {
-  integrationUtils
-} = require("@prifina-backend/shared");
+import SHARED from "@prifina-backend/shared";
 
 
 
 //jest.mock("@prifina-backend/shared");
 
 describe("todo", () => {
-  it.todo("can send http requests");
+  it.todo("something");
 
-  console.log(integrationUtils);
+  console.log(SHARED);
 });  

@@ -1,5 +1,5 @@
 
-import TEST from "../dist/esm/index";
+import TEST from "@prifina-backend/sandbox";
 
 describe("todo", () => {
 
