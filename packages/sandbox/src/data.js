@@ -1,6 +1,8 @@
+/*
 const {
   awsUtils
 } = require("@prifina-backend/shared");
+*/
 const { getNewDate } = require("@dynamic-data/utils");
 
 
@@ -340,6 +342,11 @@ async function getSandboxData(payload) {
     let mockContent = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields)
 
     if (queryType === "ASYNC") {
+
+      const {
+        awsUtils
+      } = require("@prifina-backend/shared");
+
       const credParams = {
         idToken: payload.params.idToken,
         userPoolRegion: process.env.USER_POOL_REGION,
