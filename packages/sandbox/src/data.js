@@ -29,13 +29,11 @@ async function getSandboxData(payload) {
       mockupFunction,
       mockupModule } = parsePayload(payload);
     const { dataDate, startDate, endDate, filterCondition } = parseFilter(filter);
-    let mockContent = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields)
+    // dynamic require... check rollup config
+    const dataConnector = require(mockupModule);
+    let mockContent = getMockedData(dataConnector, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields)
 
     if (queryType === "ASYNC") {
-
-      const {
-        awsUtils
-      } = require("@prifina-backend/shared");
 
       const credParams = {
         idToken: payload.params.idToken,

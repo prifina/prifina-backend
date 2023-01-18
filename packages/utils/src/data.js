@@ -107,7 +107,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
   //const test = require("@dynamic-data/garmin-mockups");
   //console.log("GARMIN", test);
 
-  const getData = require(dataConnector)[mockFunction];
+  const getData = dataConnector[mockFunction];
   if (dataType === "SYNC") {
     mockupData = getData(dataModel, filter.dataDate);
     mockupContent = Object.assign({}, mockupData);
@@ -204,7 +204,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
 
   //console.log("DATA ", mockupContent);
   if (dataType === "ASYNC") {
-    const { getModelCSVHeader } = require(dataConnector);
+    const { getModelCSVHeader } = dataConnector;
     console.log("CSV HEADER", getModelCSVHeader, dataModel);
     let mockupDataHeader = getModelCSVHeader(dataModel + "Async");
     // console.log(mockupDataHeader);
