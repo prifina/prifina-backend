@@ -215,7 +215,8 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
     let header = [];
     if (fields.length > 0) {
       header = fields.filter((c, i) => {
-        return mockupDataHeader.findIndex((col) => col === c);
+        return mockupDataHeader.findIndex((col) => col === c) > -1;
+
       });
       csvData.push(header.join(','));
     } else {
