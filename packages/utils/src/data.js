@@ -210,7 +210,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
     const { getModelCSVHeader } = dataConnector;
     console.log("CSV HEADER", getModelCSVHeader, dataModel);
     let mockupDataHeader = getModelCSVHeader(dataModel + "Async");
-    // console.log(mockupDataHeader);
+    console.log(mockupDataHeader);
     const csvData = [];
     let header = [];
     if (fields.length > 0) {
@@ -221,6 +221,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
     } else {
       csvData.push(mockupDataHeader.join(','));
     }
+    console.log("HEADER ", header, csvData);
     /*
     const header = mockupContent[0].split(",");
     const cols = fields.map((c, i) => {
@@ -232,6 +233,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
     //console.log(mockupContent.length, mockupContent[0].calendardate, mockupContent[1].calendardate);
 
     for (let row = 0; row < mockupContent.length; row++) {
+      console.log("ROW ", mockupContent[row])
       let rowData = [];
       //console.log(mockupContent[row].calendardate);
       Object.keys(mockupContent[row]).forEach(k => {
