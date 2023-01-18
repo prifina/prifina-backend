@@ -1,5 +1,8 @@
 const { getNewDate } = require("@dynamic-data/utils");
 
+const isObject = (value) => {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 
 function parseFilter(filter) {
   let dataDate = new Date().toISOString().split("T")[0];
