@@ -136,7 +136,7 @@ function getMockedData(dataConnector, dataType, format, dataModel, mockFunction,
       do {
 
         mockupData = getData(dataModel, startDate);
-        //console.log("MOCK ", startDate,);
+        console.log("MOCK ", startDate, mockupData);
         //mockupContent.push({ pvm: startDate, data: mockupData });
         let newData = Object.assign({}, mockupData);
         if (fields.length > 0) {
