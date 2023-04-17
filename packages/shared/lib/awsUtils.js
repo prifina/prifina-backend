@@ -1,5 +1,3 @@
-const { urlToHttpOptions } = require("url");
-
 const {
   ddbDocClient,
   cognitoClient,
@@ -8,7 +6,6 @@ const {
   s3Client,
   ebClient,
   athenaClient,
-  cwClient
 } = require("./aws");
 
 const {
@@ -22,18 +19,16 @@ const {
 const {
   GetObjectCommand,
   DeleteObjectCommand,
-  DeleteObjectsCommand,
-
   PutObjectCommand,
   CopyObjectCommand,
   HeadObjectCommand,
   SelectObjectContentCommand,
-  WriteGetObjectResponseCommand,
 } = require("@aws-sdk/client-s3");
 const {
   AdminAddUserToGroupCommand,
   AdminUpdateUserAttributesCommand,
   AddCustomAttributesCommand,
+  HeadBucketCommand,
 } = require("@aws-sdk/client-cognito-identity-provider");
 
 const {
@@ -47,9 +42,6 @@ const {
   GetQueryResultsCommand,
   StartQueryExecutionCommand,
 } = require("@aws-sdk/client-athena");
-
-const { ListMetricsCommand, GetMetricDataCommand, GetMetricWidgetImageCommand } = require("@aws-sdk/client-cloudwatch");
-
 const { uCfirst } = require("./libUtils");
 const { PutEventsCommand } = require("@aws-sdk/client-eventbridge");
 
@@ -58,89 +50,6 @@ const { SignatureV4 } = require("@aws-sdk/signature-v4");
 const { NodeHttpHandler } = require("@aws-sdk/node-http-handler");
 const { Sha256 } = require("@aws-crypto/sha256-browser");
 
-const { S3RequestPresigner } = require("@aws-sdk/s3-request-presigner");
-const { parseUrl } = require("@aws-sdk/url-parser");
-const { Hash } = require("@aws-sdk/hash-node");
-const { formatUrl } = require("@aws-sdk/util-format-url");
-
-const {
-  CognitoIdentityClient,
-  GetIdCommand,
-  GetCredentialsForIdentityCommand,
-} = require("@aws-sdk/client-cognito-identity");
-
-async function getCredentials({
-  idToken,
-  userPoolRegion,
-  userPoolId,
-  userIdPool,
-}) {
-  //const _currentSession = await Auth.currentSession();
-  //const token = currentSession.getIdToken().payload;
-  //const userIdPool = localStorage.getItem("LastSessionIdentityPool");
-  const provider =
-    "cognito-idp." + userPoolRegion + ".amazonaws.com/" + userPoolId;
-  //const provider = token["iss"].replace("https://", "");
-  let identityParams = {
-    IdentityPoolId: userIdPool,
-    Logins: {},
-  };
-
-  identityParams.Logins[provider] = idToken;
-  const cognitoClient = new CognitoIdentityClient({
-    region: userIdPool.split(":")[0],
-  });
-  //console.log(identityParams);
-  const cognitoIdentity = await cognitoClient.send(
-    new GetIdCommand(identityParams)
-  );
-  //console.log("COGNITO IDENTITY ", cognitoIdentity);
-
-  let credentialParams = {
-    IdentityId: cognitoIdentity.IdentityId,
-    Logins: {},
-  };
-
-  credentialParams.Logins[provider] = idToken;
-  //console.log(credentialParams);
-  const cognitoIdentityCredentials = await cognitoClient.send(
-    new GetCredentialsForIdentityCommand(credentialParams)
-  );
-  //console.log("COGNITO IDENTITY CREDS ", cognitoIdentityCredentials);
-
-  const clientCredentials = {
-    identityId: cognitoIdentity.IdentityId,
-    accessKeyId: cognitoIdentityCredentials.Credentials.AccessKeyId,
-    secretAccessKey: cognitoIdentityCredentials.Credentials.SecretKey,
-    sessionToken: cognitoIdentityCredentials.Credentials.SessionToken,
-    expiration: cognitoIdentityCredentials.Credentials.Expiration,
-    authenticated: true,
-  };
-
-  return Promise.resolve(clientCredentials);
-}
-async function awsGetSignedUrl({
-  bucket,
-  key,
-  credentials,
-  region,
-  expiresIn,
-}) {
-  const s3ObjectUrl = parseUrl(
-    `https://${bucket}.s3.${region}.amazonaws.com/${key}`
-  );
-  const presigner = new S3RequestPresigner({
-    expiresIn,
-    credentials,
-    region,
-    //sha256: Hash.bind(null, "sha256"), // In Node.js
-    sha256: Sha256, // In browsers
-  });
-  // Create a GET request from S3 url.
-  const url = await presigner.presign(new HttpRequest(s3ObjectUrl));
-  //return presigner.presign(new HttpRequest(s3ObjectUrl));
-  return formatUrl(url);
-}
 async function awsSignedRequest({
   request_api,
   region,
@@ -148,55 +57,18 @@ async function awsSignedRequest({
   post_body,
   service,
 }) {
-  let options = urlToHttpOptions(new URL(request_api));
+  const uri = new URL(request_api);
+  //console.log(uri);
 
-  //const uri = new URL(request_api);
-  //  console.log("URI ",uri);
-  /*
-  URL {
-    href: 'https://localhost:54322/',
-    origin: 'https://localhost:54322',
-    protocol: 'https:',
-    username: '',
-    password: '',
-    host: 'localhost:54322',
-    hostname: 'localhost',
-    port: '54322',
-    pathname: '/',
-    search: '',
-    searchParams: URLSearchParams {},
-    hash: ''
-  }
-*/
-  /*
-  const options={
+  const request = new HttpRequest({
     hostname: uri.hostname,
-    port: uri.port||443,
-    headers: { host: uri.host||uri.hostname, "Content-Type": "application/json" },
+    headers: { host: uri.host, "Content-Type": "application/json" },
     method: "POST",
     path: uri.pathname,
     body: JSON.stringify(post_body),
-  };
-  */
-  options.body = JSON.stringify(post_body);
-  options.headers = {
-    host: options.host || options.hostname,
-    "Content-Type": "application/json",
-  };
-  options.port = options.port || 443;
-  options.method = "POST";
-  /*  
-   httpRequest.headers.host = uri.host;
-  httpRequest.headers["Content-Type"] = "application/json";
-  httpRequest.method = "POST";
-  httpRequest.body = JSON.stringify(post_body);
-*/
-
-  console.log("OPTIONS ", options);
-  const request = new HttpRequest(options);
+  });
 
   //console.log(request);
-
   const signer = new SignatureV4({
     credentials: credentials,
     region: region,
@@ -204,13 +76,10 @@ async function awsSignedRequest({
     sha256: Sha256,
   });
 
-  console.log(signer);
+  //console.log(signer);
   const signedRequest = await signer.sign(request);
 
   const client = new NodeHttpHandler();
-  //const { response } = await client.handle(signedRequest);
-  //return client.handle(signedRequest);
-
   const { response } = await client.handle(signedRequest);
   //console.log("STATUS ",response.statusCode );
   //console.log("RESPONSE", response);
@@ -221,7 +90,6 @@ async function awsSignedRequest({
 
   //console.log(process.env);
   let responseBody = "";
-  /*
   return new Promise(
     (resolve) => {
       response.body.on("data", (chunk) => {
@@ -229,43 +97,14 @@ async function awsSignedRequest({
       });
       response.body.on("end", () => {
         console.log("Response body: " + responseBody);
-        client.destroy();
         resolve(responseBody);
       });
     },
     (error) => {
       console.log("Error: " + error);
-      client.destroy();
       reject(error);
     }
   );
-  */
-  try {
-    // const res = await nodeHttpHandler.handle(signedHttpRequest);
-    const body = await new Promise((resolve, reject) => {
-      //let body = "";
-      response.body.on("data", (chunk) => {
-        responseBody += chunk;
-      });
-      response.body.on("end", () => {
-        client.destroy();
-        resolve(responseBody);
-      });
-      response.body.on("error", (err) => {
-        client.destroy();
-        reject(err);
-      });
-    });
-    //console.log(body);
-  } catch (err) {
-    console.error("Error:");
-    console.error(err);
-    client.destroy();
-  }
-
-  //console.log("RES ", responseBody);
-  //client.destroy();
-  //return responseBody;
 }
 
 function ebPutEvents(params) {
@@ -465,29 +304,8 @@ function sendSMS(phoneNumber, message, options) {
     return Promise.reject(e);
   }
 }
-async function s3ObjectInfo(params) {
-  try {
-    //console.log("PARAMS ", params);
-    const info = await s3Client.send(new HeadObjectCommand(params));
-    //console.log("INFO ", info);
-    return Promise.resolve(info);
-  } catch (err) {
-    // err.code is now err.name
-    // console.log("Error CODE ", typeof err, Object.keys(err));
-    // console.log("Error NAME ", err.name);
-    // console.log("Error FAULT ", err.$fault);
-    // console.log("Error META ", err.$metadata);
-    // console.log("Error", err);
-    if (err.hasOwnProperty("name") && err.name === "NotFound") {
-      return Promise.resolve(false);
-    } else {
-      return Promise.reject(err);
-    }
-  }
-}
-
-function s3GetObjectStream(params) {
-  return s3Client.send(new GetObjectCommand(params));
+function s3ObjectInfo(params) {
+  return s3Client.send(new HeadObjectCommand(params));
 }
 
 const streamToString = (stream) =>
@@ -498,20 +316,21 @@ const streamToString = (stream) =>
     stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
   });
 
+//modified... added object lastModified, ContentLength
 async function s3GetObject(params) {
   try {
     // Get the object} from the Amazon S3 bucket. It is returned as a ReadableStream.
     //s3://prifina-core-352681697435/integrations/fitbit/9G7RZB.json
 
     const s3Data = await s3Client.send(new GetObjectCommand(params));
-    //console.log("S3", s3Data);
+    // console.log("S3", s3Data.LastModified);
     let bodyContents = "";
     if (s3Data && s3Data.hasOwnProperty("Body")) {
       bodyContents = await streamToString(s3Data.Body);
       //console.log(bodyContents);
     }
 
-    return Promise.resolve({ Body: bodyContents });
+    return Promise.resolve({ Body: bodyContents, ContentLength: s3Data.ContentLength, LastModified: s3Data.LastModified });
   } catch (err) {
     console.log("Error", err);
     return Promise.reject(err);
@@ -522,21 +341,12 @@ function s3PutObject(params) {
   return s3Client.send(new PutObjectCommand(params));
 }
 
-function s3DeleteObject(params) {
-  return s3Client.send(new DeleteObjectCommand(params));
-}
-function s3DeleteObjects(params) {
-  return s3Client.send(new DeleteObjectsCommand(params));
-}
 function s3CopyObject(params) {
   return s3Client.send(new CopyObjectCommand(params));
 }
 
 function s3SelectObject(params) {
   return s3Client.send(new SelectObjectContentCommand(params));
-}
-function s3WriteGetObjectResponse(params) {
-  return s3Client.send(new WriteGetObjectResponseCommand(params));
 }
 function athenaGetQueryExecution(params) {
   return athenaClient.send(new GetQueryExecutionCommand(params));
@@ -549,20 +359,6 @@ function athenaGetQueryResults(params) {
 function athenaStartQueryExecution(params) {
   return athenaClient.send(new StartQueryExecutionCommand(params));
 }
-
-
-function cloudwatchListMetrics(params) {
-  return cwClient.send(new ListMetricsCommand(params));
-}
-
-function cloudwatchGetMetricsData(params) {
-  return cwClient.send(new GetMetricDataCommand(params));
-}
-
-function cloudwatchGetMetricImage(params) {
-  return cwClient.send(new GetMetricWidgetImageCommand(params));
-}
-
 
 /*
 addPrifinaUser({ uuid: "UUID", user_id: "TEST", name: "TRO" }).then((res) => {
@@ -599,25 +395,24 @@ sendSMS("+358407077102", "testing sms", {
 });
 */
 //s3://prifina-app-data-dev/integrations/5XMCZ6.json
-//s3://prifina-core-352681697435-eu-west-1/integrations/fitbit/9G7RZB.json
 /*
 s3ObjectInfo({
-  Bucket: "prifina-core-352681697435-eu-west-1",
-  Key: "integrations/fitbit/9G7RZB.json",
+  Bucket: "prifina-app-data-dev",
+  Key: "integrations/5XMCZ6.json",
 }).then((res) => {
   console.log("TEST ", res);
 });
 */
 /*
 s3GetObject({
-  Bucket: "prifina-core-352681697435-eu-west-1",
-  Key: "integrations/fitbit/9G7RZB.json",
+  Bucket: "prifina-app-data-dev",
+  Key: "integrations/5XMCZ6.json",
 }).then((res) => {
   console.log("TEST ", res);
   console.log("TEST ", typeof res);
   console.log("TEST ", JSON.parse(res.Body.toString()));
 });
-*/
+*7
 /*
 s3PutObject({
   Bucket: "prifina-app-data-dev",
@@ -639,23 +434,13 @@ module.exports = {
   s3ObjectInfo,
   s3GetObject,
   s3PutObject,
-  s3DeleteObject,
-  s3DeleteObjects,
   s3CopyObject,
   s3SelectObject,
-  s3WriteGetObjectResponse,
   ebPutEvents,
   awsSignedRequest,
   athenaGetQueryExecution,
   athenaGetQueryResults,
   athenaStartQueryExecution,
-  getCredentials,
-  awsGetSignedUrl,
-  s3GetObjectStream,
-  cloudwatchListMetrics,
-  cloudwatchGetMetricsData,
-  cloudwatchGetMetricImage
-
 };
 
 //exports.CognitoUpdateAttributes = CognitoUpdateAttributes;

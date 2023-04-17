@@ -31,6 +31,7 @@ async function getSandboxData(payload) {
     const { dataDate, startDate, endDate, filterCondition } = parseFilter(filter);
     // dynamic require... check rollup config
     const dataConnector = require(mockupModule);
+    console.log("DATA CONNECTOR: ", dataConnector)
     let mockContent = getMockedData(dataConnector, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields)
 
     if (queryType === "ASYNC") {

@@ -2330,49 +2330,53 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@dynamic-data/fitbit-data@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/fitbit-data/-/fitbit-data-0.0.8.tgz#c4428cb4f684771cfaedf2fc5dfa98192ffe7287"
-  integrity sha512-lsQEIuQ5gWzpVaS7z7ySok4s5eahBrXH3f7TRbgJ/CzC0TuUMEtWv/cTQ4shGtPHaVZeq0kpy28pJXn56gYxsQ==
+"@dynamic-data/fitbit-data@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/fitbit-data/-/fitbit-data-0.0.9.tgz#bc32f43f36df2f02194ff0d12f4eeba214d1bef2"
+  integrity sha512-zPKdZhm0BfAWLcXJk8Tul/L0pw53WKKTERqxZd6Zf7zMYRy7oPh1nC7sX7GwwvMa2QjBqg1zyAluq1YPAzBkGw==
 
-"@dynamic-data/fitbit-mockups@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/fitbit-mockups/-/fitbit-mockups-0.0.15.tgz#d22e015664076af439529ef92fff393d5c6c3a63"
-  integrity sha512-8rB06KZcOH4tSs1CGfGV0/Gk5UWyglTyoswt3/CYv90nsleF7Dp6cQKwiclvUuJWjljGhkHhIZHwOBVRjO0xmA==
+"@dynamic-data/fitbit-mockups@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/fitbit-mockups/-/fitbit-mockups-0.0.18.tgz#3f8e3f0a354da32afdd04e341758bbb23be64399"
+  integrity sha512-i2tmyIL3tuhdi/N35pxgfogZdVCd70eJLxDfNwmo7FrMroyPOvMoHdahbiyK67zbyiv23S+Zr6f5hAo8gvvKgQ==
   dependencies:
-    "@dynamic-data/fitbit-data" "^0.0.8"
-    "@dynamic-data/utils" "^0.0.11"
+    "@dynamic-data/fitbit-data" "^0.0.9"
 
 "@dynamic-data/garmin-data@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@dynamic-data/garmin-data/-/garmin-data-0.0.7.tgz#cf9d5c7f7158adb311c3818f530a9179887e855d"
   integrity sha512-T1E3klt8ucWcTm/J59obDc4TdMufTEWydO860J1goz872i//1hxFsbjQejKWkYUJUEwQdolpBrr2uCS3zq+FhA==
 
-"@dynamic-data/garmin-mockups@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/garmin-mockups/-/garmin-mockups-0.0.18.tgz#48959a827ff28ee51f590885bbea274ee1e1e5fd"
-  integrity sha512-odwx0/0scbyZTs6Znhdeslnb2rMgmogzESQBCy4VEr4yAUgEH+HOQWmerCEoG7m2nSRjj7tYmn8rSlsTEL00yQ==
+"@dynamic-data/garmin-mockups@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/garmin-mockups/-/garmin-mockups-0.0.20.tgz#555ea7f0e8d2dd1cffa618996a0e876d84635694"
+  integrity sha512-FW8nksyEm7/X2EV4oLnDb+9cNnG1066R9h/tOkCbE1o3hMJuO05LF0XNg86zp4LuuL4OhCTWi0uVuhHXl44g0Q==
   dependencies:
     "@dynamic-data/garmin-data" "^0.0.7"
-    "@dynamic-data/utils" "^0.0.11"
+    "@dynamic-data/utils" "^0.0.13"
 
 "@dynamic-data/oura-data@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@dynamic-data/oura-data/-/oura-data-0.0.9.tgz#b3058e8a64341ca3cad6249bc4a72e7b9435a24b"
   integrity sha512-yKXWlFV/wQaV5u/WjLA0iETuX6MsA3bgAUaSXjaSwTaPCzkoArb7LPPGpgH/cRJeq9zf5Y5g0x5u8fU6CegXgQ==
 
-"@dynamic-data/oura-mockups@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/oura-mockups/-/oura-mockups-0.0.14.tgz#f464c6835692783258079ae4f09ddd9e7f449ae6"
-  integrity sha512-PFbvK1abCmyFs1Zw8GDKbHP60lbQrPs2A1VcybUeK6xF6/PTvxmjziwRIFo/IiPMbyNjbEl4EaxQJhdWNqB2KA==
+"@dynamic-data/oura-mockups@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/oura-mockups/-/oura-mockups-0.0.16.tgz#d5ac8a4a785e25b2edd35d0d13c2a9d41bb655fd"
+  integrity sha512-USNvEgbaXZ+OrkC5iR2e1ImuKWf5TB/yIJwYY29b//5XMTqcuRpVlugLvqoRp0DuyBDwhafJsL3dcwGlRJWESQ==
   dependencies:
     "@dynamic-data/oura-data" "^0.0.9"
-    "@dynamic-data/utils" "^0.0.11"
+    "@dynamic-data/utils" "^0.0.13"
 
-"@dynamic-data/utils@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@dynamic-data/utils/-/utils-0.0.11.tgz#be0bc76c30785f62f0fbeca496eee1db97555de8"
-  integrity sha512-D0kVZvC6mC8TSWCP6ndk7QP+NiwmpTDx2Mn7CRskydjCzzsSDVUeqKW7N5ZNEleZZMoDI11aul7jCWXS2idSWA==
+"@dynamic-data/utils@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/utils/-/utils-0.0.13.tgz#fe267c1abb202df39ff424b1fa97f4bc80faf10d"
+  integrity sha512-SxtOQuctu4KAANMnoajvo9HtzRQ4nxnZShfVVR8FrFyHM8lNo8WFVKKL4/893v7pYPyBN97+m9E+3QZWQQLMIQ==
+
+"@dynamic-data/utils@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@dynamic-data/utils/-/utils-0.0.14.tgz#0af424d55e7a291146ea4ea3e04dcccb82fe0c50"
+  integrity sha512-CmRa2TrnRIOrZALstIBsMSJ2D3qsoiwLmKpnseZmXxbApr8IphVx7iuaE0BId3Q74R/wpFKxufdbvrnNlFdtVw==
 
 "@gar/promisify@^1.1.3":
   version "1.1.3"

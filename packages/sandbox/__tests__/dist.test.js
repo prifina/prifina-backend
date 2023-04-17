@@ -21,70 +21,49 @@ jest.mock("@prifina-backend/shared");
 describe("todo", () => {
 
   const s3PayloadData = {
-    "input": {
-      "dataconnector": "Garmin/querySleepsData",
-      "userId": "6145b3af07fa22f66456e20eca49e98bfe35",
-      "fields": [
-        "calendardate",
-        "deepsleepdurationinseconds",
-        "durationinseconds",
-        "lightsleepdurationinseconds",
-        "awakedurationinseconds",
-        "deepsleepdurationinseconds",
-        "remsleepinseconds"
-      ],
-      "filter": "{\"s3::date\":{\"=\":\"2022-10-01\"}}",
-      "appId": "erqEj3oUNcm9a1mSpBPXwt",
-      "execId": "cc3cpkdw78",
-      "stage": "sandbox"
+    input: {
+      dataconnector: 'Fitbit/querySleepSummary',
+      fields: [],
+      filter: '{"s3::date":{"=":"2023-04-12"}}'
     },
-    "identity": {
-      "accountId": "429117803886",
-      "cognitoIdentityAuthProvider": "\"cognito-idp.us-east-1.amazonaws.com/us-east-1_w1fDFCktP\",\"cognito-idp.us-east-1.amazonaws.com/us-east-1_w1fDFCktP:CognitoSignIn:f531f541-2254-4b4a-b44a-f640c2a2e6b7\"",
-      "cognitoIdentityAuthType": "authenticated",
-      "cognitoIdentityId": "us-east-1:59ec6a11-3585-4ad0-9eb6-c9b7a58295b1",
-      "cognitoIdentityPoolId": "us-east-1:1cb638b4-0f0c-4078-9fe0-4dbd3582783d",
-      "sourceIp": [
-        "109.240.228.137"
-      ],
-      "userArn": "arn:aws:sts::429117803886:assumed-role/user-cognito-CognitoUserAuthRole-1254IDGURCRYG/CognitoIdentityCredentials",
-      "username": "AROAWH2LKBVXCRH33KO3W:CognitoIdentityCredentials"
+    dataconnector: {
+      queryType: 'SYNC',
+      dataModel: 'SleepSummary',
+      mockupFunction: 'getSleepSummaryData',
+      mockupModule: '@dynamic-data/fitbit-mockups'
     },
-    "dataconnector": {
-      "partitions": [
-        "day"
-      ],
-      "bucket": "prifina-user",
-      "input": "JSON",
-      "mockupModule": "@dynamic-data/garmin-mockups",
-      "s3Key": "garmin/sleeps/data",
-      "dataModel": "SleepsData",
-      "objectName": "summary.json",
-      "source": "S3",
-      "id": "Garmin/querySleepsData",
-      "mockupFunction": "getSleepsMockupData",
-      "queryType": "SYNC"
-    },
-    "payload": {
-      "params": {
-        "Bucket": "prifina-user",
-        "Key": "datamodels/garmin/sleeps/data/user=id_6145b3af07fa22f66456e20eca49e98bfe35/2022-10-01/summary.json",
-        "ExpressionType": "SQL",
-        "Expression": "SELECT  d.calendardate, d.deepsleepdurationinseconds, d.durationinseconds, d.lightsleepdurationinseconds, d.awakedurationinseconds, d.deepsleepdurationinseconds, d.remsleepinseconds FROM s3object[*] d",
-        "InputSerialization": {
-          "JSON": {
-            "Type": "DOCUMENT"
-          }
-        },
-        "OutputSerialization": {
-          "JSON": {
-            "RecordDelimiter": ","
-          }
-        },
-        "ScanRange": {
-          "Start": 0,
-          "End": 1048576
-        }
+    payload: { dataconnector: { input: 'JSON' } }
+  };
+  /*
+    const s3PayloadData = {
+      "input": {
+        "dataconnector": "Garmin/querySleepsData",
+        "userId": "6145b3af07fa22f66456e20eca49e98bfe35",
+        "fields": [
+          "calendardate",
+          "deepsleepdurationinseconds",
+          "durationinseconds",
+          "lightsleepdurationinseconds",
+          "awakedurationinseconds",
+          "deepsleepdurationinseconds",
+          "remsleepinseconds"
+        ],
+        "filter": "{\"s3::date\":{\"=\":\"2022-10-01\"}}",
+        "appId": "erqEj3oUNcm9a1mSpBPXwt",
+        "execId": "cc3cpkdw78",
+        "stage": "sandbox"
+      },
+      "identity": {
+        "accountId": "429117803886",
+        "cognitoIdentityAuthProvider": "\"cognito-idp.us-east-1.amazonaws.com/us-east-1_w1fDFCktP\",\"cognito-idp.us-east-1.amazonaws.com/us-east-1_w1fDFCktP:CognitoSignIn:f531f541-2254-4b4a-b44a-f640c2a2e6b7\"",
+        "cognitoIdentityAuthType": "authenticated",
+        "cognitoIdentityId": "us-east-1:59ec6a11-3585-4ad0-9eb6-c9b7a58295b1",
+        "cognitoIdentityPoolId": "us-east-1:1cb638b4-0f0c-4078-9fe0-4dbd3582783d",
+        "sourceIp": [
+          "109.240.228.137"
+        ],
+        "userArn": "arn:aws:sts::429117803886:assumed-role/user-cognito-CognitoUserAuthRole-1254IDGURCRYG/CognitoIdentityCredentials",
+        "username": "AROAWH2LKBVXCRH33KO3W:CognitoIdentityCredentials"
       },
       "dataconnector": {
         "partitions": [
@@ -100,9 +79,46 @@ describe("todo", () => {
         "id": "Garmin/querySleepsData",
         "mockupFunction": "getSleepsMockupData",
         "queryType": "SYNC"
+      },
+      "payload": {
+        "params": {
+          "Bucket": "prifina-user",
+          "Key": "datamodels/garmin/sleeps/data/user=id_6145b3af07fa22f66456e20eca49e98bfe35/2022-10-01/summary.json",
+          "ExpressionType": "SQL",
+          "Expression": "SELECT  d.calendardate, d.deepsleepdurationinseconds, d.durationinseconds, d.lightsleepdurationinseconds, d.awakedurationinseconds, d.deepsleepdurationinseconds, d.remsleepinseconds FROM s3object[*] d",
+          "InputSerialization": {
+            "JSON": {
+              "Type": "DOCUMENT"
+            }
+          },
+          "OutputSerialization": {
+            "JSON": {
+              "RecordDelimiter": ","
+            }
+          },
+          "ScanRange": {
+            "Start": 0,
+            "End": 1048576
+          }
+        },
+        "dataconnector": {
+          "partitions": [
+            "day"
+          ],
+          "bucket": "prifina-user",
+          "input": "JSON",
+          "mockupModule": "@dynamic-data/garmin-mockups",
+          "s3Key": "garmin/sleeps/data",
+          "dataModel": "SleepsData",
+          "objectName": "summary.json",
+          "source": "S3",
+          "id": "Garmin/querySleepsData",
+          "mockupFunction": "getSleepsMockupData",
+          "queryType": "SYNC"
+        }
       }
     }
-  }
+    */
   /*
     const s3PayloadData = {
       "input": {
@@ -254,7 +270,13 @@ describe("todo", () => {
       mockupFunction,
       mockupModule } = parsePayload(s3PayloadData);
     const { dataDate, startDate, endDate, filterCondition } = parseFilter(filter);
-    const res = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields);
+
+    const dataConnector = require(mockupModule);
+    console.log("DATA CONNECTOR: ", dataConnector)
+
+    //   const res = getMockedData(mockupModule, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields);
+    let res = getMockedData(dataConnector, queryType, format, dataModel, mockupFunction, { filter, filterCondition, startDate, endDate, dataDate }, fields)
+
     console.log(res);
     if (fields.length > 0) {
       //  expect(res[0]).toBe(fields.join(','));

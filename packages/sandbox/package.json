@@ -23,6 +23,11 @@
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
+    "@dynamic-data/fitbit-data": "^0.0.9",
+    "@dynamic-data/fitbit-mockups": "^0.0.18",
+    "@dynamic-data/garmin-mockups": "^0.0.20",
+    "@dynamic-data/oura-mockups": "^0.0.16",
+    "@dynamic-data/utils": "^0.0.14",
     "@prifina-backend/shared": "^0.0.7",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
@@ -38,7 +43,10 @@
     "rollup-plugin-node-externals": "^5.1.0"
   },
   "peerDependencies": {
-    "@prifina-backend/shared": "^0.0.6"
+    "@dynamic-data/fitbit-mockups": "^0.0.19",
+    "@dynamic-data/garmin-mockups": "^0.0.20",
+    "@dynamic-data/oura-mockups": "^0.0.16",
+    "@prifina-backend/shared": "^0.0.7"
   },
   "dependencies": {
     "@prifina-backend/utils": "^0.0.7"
