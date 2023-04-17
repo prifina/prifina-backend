@@ -1,6 +1,6 @@
 {
   "name": "@prifina-backend/sandbox",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "Sandbox entrypoint for Prifina Backend",
   "author": "tero <tero@prifina.com>",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "@dynamic-data/garmin-mockups": "^0.0.20",
     "@dynamic-data/oura-mockups": "^0.0.16",
     "@dynamic-data/utils": "^0.0.14",
-    "@prifina-backend/shared": "^0.0.7",
+    "@prifina-backend/shared": "^0.0.8",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^6.0.0",
